@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Sacamos la barra de navegacion porque queda fea -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#014A27</item>
+        <item name="colorPrimaryVariant">#01371E</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+    </style>
+</resources>
