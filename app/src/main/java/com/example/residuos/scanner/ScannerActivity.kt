@@ -19,10 +19,15 @@ import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.POST
 import android.app.AlertDialog
+import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.OptIn
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
+import org.json.JSONObject
+import com.example.residuos.scanResult.ScanResultActivity
+import org.json.JSONException
 
 class ScannerActivity : ComponentActivity() {
 
@@ -112,9 +117,12 @@ class ScannerActivity : ComponentActivity() {
     private fun onQrDetected(qrValue: String) {
         if (qrHandled) return
         qrHandled = true
+        //Ejemplo de valor de qr {"ID Residuo": "124:Yywc-F-N188FkQlGn2NCvpFEyt6jd379a0kaG_089Yk", "Puntos": 15, "Tipo Residuo": "Plastico"}
+        Log.d("QR_SCAN", "Valor del QR: $qrValue")
 
         lifecycleScope.launch {
-            sendResiduoToServer(qrValue)
+            //sendResiduoToServer(qrValue)
+            showResiduoInfo(qrValue)
         }
     }
 
@@ -136,7 +144,8 @@ class ScannerActivity : ComponentActivity() {
 
     private suspend fun sendResiduoToServer(id: String) {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8000/")
+            //.baseUrl("http://10.0.2.2:8000/")
+            .baseUrl("http://192.168.0.101:8000/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -171,6 +180,35 @@ class ScannerActivity : ComponentActivity() {
                 )
                 .setPositiveButton("OK") { _, _ -> finish() }
                 .show()
+        }
+    }
+    private fun showResiduoInfo(qrValue: String) {
+        try {
+            // 1. Parsear el String JSON (Esto se ejecuta en el dispatcher de la coroutine)
+            val jsonObject = JSONObject(qrValue)
+            val idResiduo = jsonObject.getString("ID Residuo")
+            val puntos = jsonObject.getInt("Puntos")
+            val tipoResiduo = jsonObject.getString("Tipo Residuo")
+            Log.d("QR_SCAN", "Valor del JSON generado: $jsonObject")
+
+            // 2. Crear el Intent y pasar los datos
+            // NOTA: 'this' en un Fragment/Activity dentro de un método de extensión
+            // o coroutine puede requerir ser explícito (ej. requireContext() o nombreClase.this)
+            val intent = Intent(this, ScanResultActivity::class.java).apply {
+                putExtra("KEY_ID", idResiduo)
+                putExtra("KEY_PUNTOS", puntos)
+                putExtra("KEY_TIPO", tipoResiduo)
+            }
+
+            // 3. Iniciar la nueva Activity (Debe ejecutarse en el Main thread)
+            // Dado que estamos usando 'lifecycleScope.launch', ya estamos en el Main thread
+            // a menos que se haya cambiado el dispatcher explícitamente.
+            startActivity(intent)
+
+        } catch (e: JSONException) {
+            Log.e("QR_SCAN_ERROR", "Error al parsear el JSON del QR: ${e.message}")
+            // Puedes considerar restablecer qrHandled si el error es fatal para reintentar.
+            // qrHandled = false
         }
     }
 }
