@@ -33,7 +33,9 @@ class ScannerActivity : ComponentActivity() {
 
     private lateinit var preview: Preview
     private lateinit var imageAnalysis: ImageAnalysis
+
     private var qrHandled = false
+    private var errorShown = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,11 +93,6 @@ class ScannerActivity : ComponentActivity() {
 
                 scanner.process(image)
                     .addOnSuccessListener { barcodes ->
-                        if (barcodes.isEmpty()) {
-                            imageProxy.close()
-                            return@addOnSuccessListener
-                        }
-
                         for (barcode in barcodes) {
                             if (barcode.format == FORMAT_QR_CODE) {
                                 handleQr(barcode.rawValue)
@@ -125,7 +122,7 @@ class ScannerActivity : ComponentActivity() {
         if (qrHandled) return
 
         if (rawValue.isNullOrBlank()) {
-            showError("QR vacío o inválido")
+            showErrorOnce("QR vacio o invalido")
             return
         }
 
@@ -137,6 +134,7 @@ class ScannerActivity : ComponentActivity() {
             val tipo = json.getString("Tipo Residuo")
 
             qrHandled = true
+            playSuccessAnimation()
 
             val intent = Intent(this, ScanResultActivity::class.java).apply {
                 putExtra(KEY_ID, id)
@@ -147,14 +145,35 @@ class ScannerActivity : ComponentActivity() {
             startActivity(intent)
 
         } catch (e: JSONException) {
-            showError("QR inválido. Formato incorrecto")
-            Log.e("QR_SCAN", "Error JSON: ${e.message}")
+            showErrorOnce("QR invalido. Formato incorrecto")
         }
     }
 
-    private fun showError(msg: String) {
-        lifecycleScope.launch {
-            Toast.makeText(this@ScannerActivity, msg, Toast.LENGTH_SHORT).show()
-        }
+    // Error una sola vez
+    private fun showErrorOnce(msg: String) {
+        if (errorShown) return
+        errorShown = true
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    // Animacion visual a modo de feedback
+    private fun playSuccessAnimation() {
+        val previewView =
+            findViewById<androidx.camera.view.PreviewView>(R.id.previewView)
+
+        previewView.animate()
+            .scaleX(1.05f)
+            .scaleY(1.05f)
+            .alpha(0.8f)
+            .setDuration(150)
+            .withEndAction {
+                previewView.animate()
+                    .scaleX(1f)
+                    .scaleY(1f)
+                    .alpha(1f)
+                    .setDuration(150)
+                    .start()
+            }
+            .start()
     }
 }
