@@ -15,6 +15,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.residuos.R
+import com.example.residuos.network.RetrofitClient
 import com.example.residuos.scanResult.ScanResultActivity
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode.FORMAT_QR_CODE
@@ -122,58 +123,50 @@ class ScannerActivity : ComponentActivity() {
         if (qrHandled) return
 
         if (rawValue.isNullOrBlank()) {
-            showErrorOnce("QR vacio o invalido")
+            showErrorOnce("QR inválido")
             return
         }
 
-        try {
-            val json = JSONObject(rawValue)
+        qrHandled = true
 
-            val id = json.getString("ID Residuo")
-            val puntos = json.getInt("Puntos")
-            val tipo = json.getString("Tipo Residuo")
-
-            qrHandled = true
-            playSuccessAnimation()
-
-            val intent = Intent(this, ScanResultActivity::class.java).apply {
-                putExtra(KEY_ID, id)
-                putExtra(KEY_PUNTOS, puntos)
-                putExtra(KEY_TIPO, tipo)
-            }
-
-            startActivity(intent)
-
-        } catch (e: JSONException) {
-            showErrorOnce("QR invalido. Formato incorrecto")
+        lifecycleScope.launch {
+            reclamarResiduo(rawValue)
         }
     }
+
+    private suspend fun reclamarResiduo(idResiduo: String) {
+        try {
+            val api = RetrofitClient.getApiService(this)
+
+            val body = mapOf(
+                "id_residuo" to idResiduo
+            )
+
+            val response = api.reclamar(body)
+
+            if (response.isSuccessful) {
+                // OK → ir a pantalla de resultado
+                val intent = Intent(this, ScanResultActivity::class.java).apply {
+                    putExtra("KEY_ID", idResiduo)
+                }
+                startActivity(intent)
+
+            } else {
+                showErrorOnce("No se pudo reclamar el residuo")
+                qrHandled = false
+            }
+
+        } catch (e: Exception) {
+            showErrorOnce("Error de conexión con el servidor")
+            qrHandled = false
+        }
+    }
+
 
     // Error una sola vez
     private fun showErrorOnce(msg: String) {
         if (errorShown) return
         errorShown = true
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-    }
-
-    // Animacion visual a modo de feedback
-    private fun playSuccessAnimation() {
-        val previewView =
-            findViewById<androidx.camera.view.PreviewView>(R.id.previewView)
-
-        previewView.animate()
-            .scaleX(1.05f)
-            .scaleY(1.05f)
-            .alpha(0.8f)
-            .setDuration(150)
-            .withEndAction {
-                previewView.animate()
-                    .scaleX(1f)
-                    .scaleY(1f)
-                    .alpha(1f)
-                    .setDuration(150)
-                    .start()
-            }
-            .start()
     }
 }
