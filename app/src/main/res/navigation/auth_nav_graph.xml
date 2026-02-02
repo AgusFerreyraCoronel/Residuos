@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/auth_nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.residuos.mainLogin.login.LoginFragment">
+
+        <action
+            android:id="@+id/action_login_to_signup"
+            app:destination="@id/signupFragment"/>
+
+        <action
+            android:id="@+id/action_login_to_main"
+            app:destination="@id/main_nav_graph"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.example.residuos.mainLogin.singup.SingupFragment"/>
+</navigation>

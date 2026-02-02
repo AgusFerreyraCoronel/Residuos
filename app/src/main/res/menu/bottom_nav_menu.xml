@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_home"
+        android:title="Inicio" />
+
+    <item
+        android:id="@+id/scannerFragment"
+        android:icon="@drawable/ic_scan"
+        android:title="Scanner" />
+
+    <item
+        android:id="@+id/rankingsFragment"
+        android:icon="@drawable/ic_rank"
+        android:title="Rankings" />
+
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_settings"
+        android:title="Configuración" />
+
+</menu>

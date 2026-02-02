@@ -2,15 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
-    android:background="@drawable/bg_login"
-    tools:context="scanResult.ScanResultActivity">
+    android:background="@drawable/bg_login">
 
     <TextView
-        android:id="@+id/text_title"
+        android:id="@+id/textTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Resultado del Escaneo QR"
@@ -23,26 +21,25 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
-        android:id="@+id/text_id_residuo_label"
+        android:id="@+id/textIdResiduoLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ID del Residuo:"
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@+id/text_title"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="32dp"/>
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@id/textTitle"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
-        android:id="@+id/text_id_residuo"
+        android:id="@+id/textIdResiduo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textColor="@android:color/white"
-        tools:text="124:Yywc-F-N188FkQlGn2NCvpFEyt6jd379a0kaG_089Yk"
-        app:layout_constraintTop_toTopOf="@+id/text_id_residuo_label"
-        app:layout_constraintStart_toEndOf="@+id/text_id_residuo_label"
+        app:layout_constraintTop_toTopOf="@id/textIdResiduoLabel"
+        app:layout_constraintStart_toEndOf="@id/textIdResiduoLabel"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="8dp"/>
 
@@ -50,34 +47,33 @@
         android:id="@+id/divider1"
         android:layout_width="0dp"
         android:layout_height="1dp"
+        android:layout_marginTop="16dp"
         android:background="#66FFFFFF"
-        app:layout_constraintTop_toBottomOf="@+id/text_id_residuo"
+        app:layout_constraintTop_toBottomOf="@id/textIdResiduo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
-        android:id="@+id/text_puntos_label"
+        android:id="@+id/textPuntosLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Puntos Obtenidos:"
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@+id/divider1"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/divider1"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
-        android:id="@+id/text_puntos"
+        android:id="@+id/textPuntos"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@android:color/holo_green_light"
-        tools:text="15"
-        app:layout_constraintTop_toTopOf="@+id/text_puntos_label"
-        app:layout_constraintStart_toEndOf="@+id/text_puntos_label"
+        app:layout_constraintTop_toTopOf="@id/textPuntosLabel"
+        app:layout_constraintStart_toEndOf="@id/textPuntosLabel"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="8dp"/>
 
@@ -85,38 +81,37 @@
         android:id="@+id/divider2"
         android:layout_width="0dp"
         android:layout_height="1dp"
+        android:layout_marginTop="16dp"
         android:background="#66FFFFFF"
-        app:layout_constraintTop_toBottomOf="@+id/text_puntos"
+        app:layout_constraintTop_toBottomOf="@id/textPuntos"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
-        android:id="@+id/text_tipo_residuo_label"
+        android:id="@+id/textTipoResiduoLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tipo de Residuo:"
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@+id/divider2"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/divider2"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
-        android:id="@+id/text_tipo_residuo"
+        android:id="@+id/textTipoResiduo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textColor="@android:color/white"
-        tools:text="Plástico"
-        app:layout_constraintTop_toTopOf="@+id/text_tipo_residuo_label"
-        app:layout_constraintStart_toEndOf="@+id/text_tipo_residuo_label"
+        app:layout_constraintTop_toTopOf="@id/textTipoResiduoLabel"
+        app:layout_constraintStart_toEndOf="@id/textTipoResiduoLabel"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="8dp"/>
 
     <Button
-        android:id="@+id/button_accept"
+        android:id="@+id/buttonAccept"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Aceptar"
