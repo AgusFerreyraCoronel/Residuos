@@ -41,35 +41,56 @@ android {
         viewBinding = true
         dataBinding = true
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.8"
+    }
+
+    packaging {
+        resources {
+            excludes += "META-INF/INDEX.LIST"
+            excludes += "META-INF/DEPENDENCIES"
+            excludes += "META-INF/LICENSE*"
+        }
+    }
 }
 
 dependencies {
 
     // Core
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+
+    // Compose BOM
+    implementation(platform("androidx.compose:compose-bom:2024.02.00"))
+
+    // Compose UI
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.ui:ui-graphics")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.runtime)
+    debugImplementation("androidx.compose.ui:ui-tooling")
+
+    // Material3 (OBLIGATORIO para tus clases)
+    implementation("androidx.compose.material3:material3")
+    implementation("com.google.android.material:material:1.12.0")
+
+    // Activity Compose
+    implementation("androidx.activity:activity-compose:1.8.2")
+
+    // ViewModel + Compose
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
 
     // Navigation
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
-
-    // Material
-    implementation(libs.androidx.material3)
-    implementation("com.google.android.material:material:1.9.0")
-
-    // Compose
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.activity.compose)
-    debugImplementation(libs.androidx.ui.tooling)
-
-    // ViewModel / LiveData
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+    val nav_version = "2.9.7"
+    // Navigation Fragments KTX
+    implementation("androidx.navigation:navigation-fragment-ktx:${nav_version}")
+    // Navigation UI KTX (Includes navigation-ui functionality with Kotlin extensions)
+    implementation("androidx.navigation:navigation-ui-ktx:${nav_version}")
+    // Optional: for dynamic feature module support
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:${nav_version}")
+    implementation("androidx.navigation:navigation-compose:2.7.7")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -89,12 +110,16 @@ dependencies {
     implementation("androidx.camera:camera-lifecycle:$camerax_version")
     implementation("androidx.camera:camera-view:$camerax_version")
 
+    // Guava (requerido por CameraX)
+    implementation("com.google.guava:guava:33.0.0-android")
+
     // ML Kit
     implementation("com.google.mlkit:barcode-scanning:17.2.0")
     implementation("com.google.android.gms:play-services-mlkit-barcode-scanning:18.3.0")
 
     // Tests
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
 }

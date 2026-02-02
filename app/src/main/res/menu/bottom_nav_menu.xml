@@ -17,6 +17,11 @@
         android:title="Rankings" />
 
     <item
+        android:id="@+id/pointsFragment"
+        android:icon="@drawable/ic_points"
+        android:title="Puntos" />
+
+    <item
         android:id="@+id/settingsFragment"
         android:icon="@drawable/ic_settings"
         android:title="Configuración" />

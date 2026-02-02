@@ -18,14 +18,27 @@ object RetrofitClient {
         if (apiService == null) {
             // Interceptor que añade Authorization si existe token guardado
             val authInterceptor = Interceptor { chain ->
+                val request = chain.request()
+                val url = request.url.encodedPath
+
+                val isPublicEndpoint =
+                    url.contains("/login") || url.contains("/signup")
+
+                if (isPublicEndpoint) {
+                    return@Interceptor chain.proceed(request)
+                }
+
                 val shared = context.getSharedPreferences("auth", Context.MODE_PRIVATE)
                 val access = shared.getString("access_token", null)
-                val req = if (!access.isNullOrEmpty()) {
-                    chain.request().newBuilder()
-                        .addHeader("Authorization", "Bearer $access")
-                        .build()
-                } else chain.request()
-                chain.proceed(req)
+
+                val newRequest =
+                    if (!access.isNullOrEmpty()) {
+                        request.newBuilder()
+                            .addHeader("Authorization", "Bearer $access")
+                            .build()
+                    } else request
+
+                chain.proceed(newRequest)
             }
 
             val logging = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }

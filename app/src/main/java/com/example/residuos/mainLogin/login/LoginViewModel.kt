@@ -9,7 +9,6 @@ import com.example.residuos.network.ApiService
 import com.example.residuos.network.LoginRequest
 import com.example.residuos.network.LoginResponse
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class LoginViewModel(
     private val api: ApiService,

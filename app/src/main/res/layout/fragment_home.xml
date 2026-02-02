@@ -4,18 +4,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_login">
+    android:background="@drawable/bg_login"
+    android:padding="16dp">
 
+    <!-- Bienvenida -->
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/tvWelcome"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Inicio"
-        android:textSize="24sp"
+        android:text="Bienvenido"
+        android:textSize="26sp"
         android:textStyle="bold"
         android:textColor="@android:color/white"
+        android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Card de tips -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardTip"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="6dp"
+        app:cardBackgroundColor="#CCFFFFFF"
+        app:layout_constraintTop_toBottomOf="@id/tvWelcome"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/tvTip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="Tip"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"/>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

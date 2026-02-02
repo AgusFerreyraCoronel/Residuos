@@ -18,6 +18,14 @@
         android:name="com.example.residuos.rankings.RankingsFragment"/>
 
     <fragment
+        android:id="@+id/pointsFragment"
+        android:name="com.example.residuos.points.PointsFragment"/>
+
+    <fragment
+        android:id="@+id/achivementsFragment"
+        android:name="com.example.residuos.achivements.AchivementsFragment"/>
+
+    <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.residuos.settings.SettingsFragment"/>
 </navigation>

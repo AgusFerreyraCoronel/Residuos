@@ -20,9 +20,25 @@
         android:label="Rankings" />
 
     <fragment
+        android:id="@+id/pointsFragment"
+        android:name="com.example.residuos.points.PointsFragment"
+        android:label="Puntos" />
+
+    <fragment
+        android:id="@+id/achivementsFragment"
+        android:name="com.example.residuos.achivements.AchivementsFragment"
+        android:label="Logros" />
+
+    <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.residuos.settings.SettingsFragment"
-        android:label="Configuración" />
+        android:label="Configuración">
+        <action
+            android:id="@+id/action_settingsFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/main_nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/loginFragment"
@@ -48,5 +64,11 @@
         app:destination="@id/main_nav_graph"
         app:popUpTo="@id/loginFragment"
         app:popUpToInclusive="true" />
+
+    <fragment
+        android:id="@+id/redeemPoints"
+        android:name="com.example.residuos.redeemPoints.RedeemPointsFragment"
+        android:label="Canje de puntos" />
+
 
 </navigation>
