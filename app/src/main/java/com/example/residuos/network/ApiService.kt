@@ -22,7 +22,7 @@ interface ApiService {
     suspend fun refreshToken(@Body body: Map<String, String>): Response<LoginResponse>
 
     // Endpoints residuo (ejemplos)
-    @POST("/api/residuos/reclamar/")
+    @POST("/api/residuo/reclamar/")
     suspend fun reclamar(@Body body: Map<String, String>): Response<Unit>
 
     @GET("/api/residuos/{id_usuario}")
