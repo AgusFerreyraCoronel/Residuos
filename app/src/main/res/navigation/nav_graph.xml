@@ -11,8 +11,30 @@
 
     <fragment
         android:id="@+id/scannerFragment"
-        android:name="com.example.residuos.scanner.ScannerFragment"
-        android:label="Scanner" />
+        android:name="com.example.residuos.scanner.ScannerFragment">
+
+        <action
+            android:id="@+id/action_scanner_to_scanResult"
+            app:destination="@id/scanResultFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/scanResultFragment"
+        android:name="com.example.residuos.scanResult.ScanResultFragment">
+
+        <argument
+            android:name="KEY_ID"
+            app:argType="string" />
+
+        <argument
+            android:name="KEY_PUNTOS"
+            app:argType="integer" />
+
+        <argument
+            android:name="KEY_TIPO"
+            app:argType="string" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/rankingsFragment"

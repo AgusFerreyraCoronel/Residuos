@@ -22,6 +22,8 @@ import com.google.mlkit.vision.common.InputImage
 import java.util.concurrent.Executors
 import android.Manifest
 import androidx.camera.core.ExperimentalGetImage
+import androidx.navigation.fragment.findNavController
+
 
 
 class ScannerFragment : Fragment(R.layout.fragment_scanner) {
@@ -48,14 +50,17 @@ class ScannerFragment : Fragment(R.layout.fragment_scanner) {
         }
 
         viewModel.navigateEvent.observe(viewLifecycleOwner) { data ->
-            val intent = Intent(requireContext(), ScanResultFragment::class.java).apply {
-                putExtra(KEY_ID, data.id)
-                putExtra(KEY_PUNTOS, data.puntos)
-                putExtra(KEY_TIPO, data.tipo)
+            val bundle = Bundle().apply {
+                putString(KEY_ID, data.id)
+                putInt(KEY_PUNTOS, data.puntos)
+                putString(KEY_TIPO, data.tipo)
             }
-            startActivity(intent)
-        }
 
+            findNavController().navigate(
+                R.id.action_scanner_to_scanResult,
+                bundle
+            )
+        }
         viewModel.errorEvent.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
