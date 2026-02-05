@@ -38,10 +38,14 @@ class ScannerFragment : Fragment(R.layout.fragment_scanner) {
 
     private lateinit var preview: Preview
     private lateinit var imageAnalysis: ImageAnalysis
+
+    private var previewView: PreviewView? = null
+
     private val cameraExecutor = Executors.newSingleThreadExecutor()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        previewView = view.findViewById(R.id.previewView)
 
         if (allPermissionsGranted()) {
             startCamera()
@@ -80,11 +84,13 @@ class ScannerFragment : Fragment(R.layout.fragment_scanner) {
         cameraProviderFuture.addListener({
             val cameraProvider = cameraProviderFuture.get()
 
-            val previewView =
-                requireView().findViewById<PreviewView>(R.id.previewView)
+            /*val previewView =
+                requireView().findViewById<PreviewView>(R.id.previewView)*/
+            val pv = previewView ?: return@addListener
+
 
             preview = Preview.Builder().build().also {
-                it.setSurfaceProvider(previewView.surfaceProvider)
+                it.setSurfaceProvider(pv.surfaceProvider)
             }
 
             imageAnalysis = ImageAnalysis.Builder()
@@ -144,6 +150,7 @@ class ScannerFragment : Fragment(R.layout.fragment_scanner) {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        previewView = null
         cameraExecutor.shutdown()
     }
 }

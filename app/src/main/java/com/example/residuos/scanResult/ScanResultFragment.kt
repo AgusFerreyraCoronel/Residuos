@@ -5,9 +5,11 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.residuos.R
 import com.example.residuos.databinding.FragmentScanResultBinding
 import com.example.residuos.scanner.ScannerFragment
+
 
 class ScanResultFragment : Fragment(R.layout.fragment_scan_result) {
 
@@ -15,6 +17,7 @@ class ScanResultFragment : Fragment(R.layout.fragment_scan_result) {
     private val binding get() = _binding!!
 
     private val viewModel: ScanResultViewModel by viewModels()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,11 +41,19 @@ class ScanResultFragment : Fragment(R.layout.fragment_scan_result) {
             binding.textTipoResiduo.text = it
         }
 
+        /* Intenta ir a la camara pero no entra y vuelve a cargar el scan result.
         binding.buttonAccept.setOnClickListener {
             requireActivity()
                 .supportFragmentManager
                 .popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        }*/
+
+        binding.buttonAccept.setOnClickListener {
+            findNavController().navigate(R.id.homeFragment)
         }
+
+
+
     }
 
     override fun onDestroyView() {
