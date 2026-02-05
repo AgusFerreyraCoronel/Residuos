@@ -31,6 +31,9 @@ interface ApiService {
     @GET("/api/residuos/")
     suspend fun getResiduosTotales(): Response<Map<String, Int>>
 
+    @GET("/api/puntos/")
+    suspend fun getPuntosPropios(): Response<Map<String, Int>>
+
     // RANKING
     @GET("api/ranking/")
     suspend fun getRanking(
