@@ -3,6 +3,7 @@ package com.example.residuos.home
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.example.residuos.R
 import com.example.residuos.databinding.FragmentHomeBinding
@@ -32,5 +33,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.tvWelcome.text = "Bienvenido $username"
 
         binding.tvTip.text = tips.random()
+
+        // Evita que se cierre o crahsee la app al volver para atras
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    // No hace nada
+                }
+            }
+        )
     }
 }
