@@ -46,6 +46,7 @@ class SignupViewModel : ViewModel() {
     }
 }
 
+// Clase chiquita para ver el comportamiento del singUp
 sealed class SignupUiState {
     object Loading : SignupUiState()
     object Success : SignupUiState()

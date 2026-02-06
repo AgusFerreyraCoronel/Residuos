@@ -9,6 +9,8 @@ class RankingsViewModelFactory(
     private val context: Context
 ) : ViewModelProvider.Factory {
 
+    // Idem al Factory del Login, si agrego Hiult explota
+
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         val api = RetrofitClient.getApiService(context)
         return RankingsViewModel(api) as T

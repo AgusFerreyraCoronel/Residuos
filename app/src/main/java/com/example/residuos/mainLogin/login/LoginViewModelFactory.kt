@@ -9,6 +9,9 @@ class LoginViewModelFactory(
     private val context: Context
 ) : ViewModelProvider.Factory {
 
+    // El factory este es horrible pero no encontre otra forma de inicializar el elemento sin usar Hilt o alguna otra libreria
+    // Es mas, cuando quise poner Hilt exploto  el proyecto y no me levantaba el gradle siquiera
+
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
 

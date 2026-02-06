@@ -32,14 +32,16 @@ class SettingsFragment : Fragment() {
     }
 
     private fun logout() {
-        // auth prefs
+        // Borramos todas las preferencias para que no quede nada en memoria
+
+        // Auth prefs
         requireContext()
             .getSharedPreferences("auth", Context.MODE_PRIVATE)
             .edit()
             .clear()
             .apply()
 
-        // user prefs (si existen)
+        // User prefs
         requireContext()
             .getSharedPreferences("user_data", Context.MODE_PRIVATE)
             .edit()

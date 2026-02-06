@@ -9,9 +9,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
 
+    // -----
+    // Acordarse de comentar segun corresponda para que funcione tu local
+    // El mio es el tercero, el primero es el tuyo si no me equivoco, el segundo no se de donde salio la verdad
+    // -----
+
     //private const val BASE_URL = "http://192.168.0.104:8000/" // device -> localhost
     //private const val BASE_URL = "http://192.168.0.128:8000/"
     private const val BASE_URL = "http://10.0.2.2:8000/" // emulator -> localhost
+
     private var apiService: ApiService? = null
 
     fun getApiService(context: Context): ApiService {

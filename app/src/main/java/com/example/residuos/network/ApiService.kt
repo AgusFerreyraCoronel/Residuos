@@ -9,6 +9,8 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
+
+    // Clase general para los metodos utilziados para la comunicacion con la API del backend, podriamos ponerlos todos asi ya quedan planteados
     @POST("/api/login/")
     suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>
 

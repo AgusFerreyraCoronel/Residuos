@@ -29,9 +29,6 @@ class PointsFragment : Fragment(R.layout.fragment_points) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
 
-        //val userPoints = 1250  luego lo reemplazás por backend / ViewModel
-        //tvMyPoints.text = "Mis puntos: $userPoints"
-
         btnRedeem.setOnClickListener {
             findNavController().navigate(R.id.redeemPoints)
         }
