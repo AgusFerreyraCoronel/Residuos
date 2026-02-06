@@ -2,8 +2,9 @@
 <resources>
     <!-- Sacamos la barra de navegacion porque queda fea -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">#014A27</item>
-        <item name="colorPrimaryVariant">#01371E</item>
+        <item name="colorPrimary">#A7C957</item>
+        <item name="colorSecondary">#A7C957</item>
+        <item name="colorPrimaryVariant">#A7C957</item>
         <item name="colorOnPrimary">#FFFFFF</item>
     </style>
 </resources>

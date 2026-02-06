@@ -27,12 +27,17 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNav.setupWithNavController(navController)
 
+        // Esconder la barra de navegacion si el usuario esta parado en el login o en el register
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            binding.bottomNav.visibility =
-                if (destination.parent?.id == R.id.nav_graph)
-                    View.VISIBLE
-                else
-                    View.GONE
+            when (destination.id) {
+                R.id.loginFragment,
+                R.id.signupFragment -> {
+                    binding.bottomNav.visibility = View.GONE
+                }
+                else -> {
+                    binding.bottomNav.visibility = View.VISIBLE
+                }
+            }
         }
     }
 }

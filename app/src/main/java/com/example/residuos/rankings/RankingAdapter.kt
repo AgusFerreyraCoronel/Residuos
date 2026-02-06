@@ -34,8 +34,6 @@ class RankingAdapter :
         holder.tvPosition.text = rank.toString()
         holder.tvUsername.text = item.username
         holder.tvScore.text = "${item.score} pts"
-        holder.tvAvatar.text =
-            item.username.firstOrNull()?.uppercase() ?: "?"
 
         when (rank) {
             1 -> holder.root.setBackgroundResource(R.drawable.bg_rank_gold)
@@ -47,7 +45,6 @@ class RankingAdapter :
     class VH(v: View) : RecyclerView.ViewHolder(v) {
         val root: MaterialCardView = v.findViewById(R.id.rootCard)
         val tvPosition: TextView = v.findViewById(R.id.tvPosition)
-        val tvAvatar: TextView = v.findViewById(R.id.tvAvatar)
         val tvUsername: TextView = v.findViewById(R.id.tvUsername)
         val tvScore: TextView = v.findViewById(R.id.tvScore)
     }
