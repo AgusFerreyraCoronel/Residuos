@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
 
             // Insertar usuario
-            userDao.insert(User(name = "Hernán"))
+            userDao.insert(User(username = "Hernán"))
 
             // Leer usuarios
             val users = userDao.getAll()

@@ -1,5 +1,6 @@
 package com.example.residuos.redeemPoints
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
@@ -24,10 +25,14 @@ class RedeemPointsFragment : Fragment(R.layout.fragment_redeem_points) {
         val container = view.findViewById<LinearLayout>(R.id.optionsContainer)
 
         val options = listOf(
-            RedeemOption("Descuento en el buffet", 100),
+            RedeemOption("Descuento en el buffet", 10),
             RedeemOption("Descuento en la fotocopiadora", 200)
         )
 
+        val prefs = requireContext()
+            .getSharedPreferences("auth", Context.MODE_PRIVATE)
+
+        val username = prefs.getString("username", null)
         options.forEach { option ->
             val item = layoutInflater.inflate(
                 R.layout.item_redeem_option,
@@ -39,11 +44,25 @@ class RedeemPointsFragment : Fragment(R.layout.fragment_redeem_points) {
             item.findViewById<TextView>(R.id.tvCost).text = "${option.cost} pts"
 
             item.setOnClickListener {
+                /*TODO: cambiar validación para que calcule:
+                   puntos que tenemos en el backend
+                   - puntos que llevamos canjeados en la BD
+                */
                 if (viewModel.isItEnough(option.cost)) {
                     val qrMessage = "Cupón de descuento para ${option.title.lowercase()}"
 
                     val bundle = Bundle().apply {
                         putString("qrMessage", qrMessage)
+                    }
+                    //canjeo por BD.
+                    if (username != null) {
+                        viewModel.canjear(username, option.cost)
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "Usuario no autenticado",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
 
                     findNavController().navigate(
@@ -74,4 +93,5 @@ class RedeemPointsFragment : Fragment(R.layout.fragment_redeem_points) {
             bundle
         )
     }
+
 }
