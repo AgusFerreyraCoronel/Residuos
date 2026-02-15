@@ -40,5 +40,9 @@ class UserRepository(context: Context) {
         return userDao.findByUsername(username)?.id
     }
 
+    suspend fun getSpentPoints(username: String): Int {
+        return userDao.findByUsername(username)?.puntos ?: 0
+    }
+
 
 }

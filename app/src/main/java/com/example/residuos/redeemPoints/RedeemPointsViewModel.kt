@@ -28,8 +28,20 @@ class RedeemPointsViewModel(application: Application) : AndroidViewModel(applica
                 val response = api.getPuntosPropios()
 
                 if (response.isSuccessful) {
-                    val body = response.body()
-                    _points.postValue(body?.get("puntos") ?: 0)
+                    val backendPoints = response.body()?.get("puntos") ?: 0
+
+                    val prefs = getApplication<Application>()
+                        .getSharedPreferences("auth", 0)
+
+                    val username = prefs.getString("username", null)
+
+                    val puntosGastados = if (username != null) {
+                        userRepository.getSpentPoints(username)
+                    } else 0
+                    //puntos gastados es negativo
+                    val puntosDisponibles = backendPoints + puntosGastados
+
+                    _points.postValue(puntosDisponibles)
                 } else {
                     _error.postValue("Error al obtener puntos")
                 }
