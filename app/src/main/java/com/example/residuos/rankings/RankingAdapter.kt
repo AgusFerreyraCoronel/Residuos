@@ -33,7 +33,7 @@ class RankingAdapter :
 
         holder.tvPosition.text = rank.toString()
         holder.tvUsername.text = item.username
-        holder.tvScore.text = "${item.score} pts"
+        holder.tvScore.text = "${item.total_puntos} pts"
 
         when (rank) {
             1 -> holder.root.setBackgroundResource(R.drawable.bg_rank_gold)

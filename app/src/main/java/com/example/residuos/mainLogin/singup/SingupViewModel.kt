@@ -1,14 +1,21 @@
 package com.example.residuos.mainLogin.singup
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.residuos.localdata.UserRepository
 import com.example.residuos.network.ApiService
 import com.example.residuos.network.SignupRequest
 import kotlinx.coroutines.launch
 
-class SignupViewModel : ViewModel() {
+class SignupViewModel(application: Application) :
+    AndroidViewModel(application) {
+
+    private val userRepository =
+        UserRepository(getApplication())
 
     private val _uiState = MutableLiveData<SignupUiState>()
     val uiState: LiveData<SignupUiState> = _uiState
@@ -32,6 +39,9 @@ class SignupViewModel : ViewModel() {
                 )
 
                 if (response.isSuccessful && response.body() != null) {
+                    //
+                    userRepository.insertUser(username)
+
                     _uiState.value = SignupUiState.Success
                 } else {
                     _uiState.value = SignupUiState.Error(
