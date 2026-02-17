@@ -101,4 +101,16 @@
         android:name="com.example.residuos.redeemQr.RedeemQrFragment"
         android:label="Canje de puntos" />
 
+    <fragment
+        android:id="@+id/myRewardsFragment"
+        android:name="com.example.residuos.myRewards.MyRewardsFragment"
+        android:label="Mis recompensas">
+
+        <action
+            android:id="@+id/action_myRewardsFragment_to_redeemQrFragment"
+            app:destination="@id/redeemQr" />
+
+    </fragment>
+
+
 </navigation>

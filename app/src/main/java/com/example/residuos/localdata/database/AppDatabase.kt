@@ -5,12 +5,17 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.residuos.localdata.dao.UserDao
 import com.example.residuos.localdata.entity.User
+import com.example.residuos.localdata.entity.RewardEntity
 import android.content.Context
+import com.example.residuos.localdata.dao.RewardDao
 
-@Database(entities = [User::class], version = 2)
+@Database(entities = [User::class,
+    RewardEntity::class ], version = 3)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
+    abstract fun rewardDao(): RewardDao
+
 
     companion object {
         @Volatile

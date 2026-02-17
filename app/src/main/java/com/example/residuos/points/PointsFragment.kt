@@ -19,7 +19,11 @@ class PointsFragment : Fragment(R.layout.fragment_points) {
 
         val tvMyPoints = view.findViewById<TextView>(R.id.tvMyPoints)
         val btnRedeem = view.findViewById<Button>(R.id.btnRedeemPoints)
+        val btnMyRewards = view.findViewById<Button>(R.id.btnMyRewards)
 
+        btnMyRewards.setOnClickListener {
+            findNavController().navigate(R.id.myRewardsFragment)
+        }
 
         viewModel.points.observe(viewLifecycleOwner) { points ->
             tvMyPoints.text = "Mis puntos: $points"

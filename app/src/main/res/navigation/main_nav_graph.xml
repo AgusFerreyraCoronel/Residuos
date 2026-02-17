@@ -28,4 +28,5 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.residuos.settings.SettingsFragment"/>
+
 </navigation>
