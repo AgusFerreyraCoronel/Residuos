@@ -56,7 +56,7 @@ class RedeemPointsFragment : Fragment(R.layout.fragment_redeem_points) {
                     }
                     //canjeo por BD.
                     if (username != null) {
-                        viewModel.canjear(username, option.cost)
+                        viewModel.canjear(username, option.cost, qrMessage)
                     } else {
                         Toast.makeText(
                             requireContext(),

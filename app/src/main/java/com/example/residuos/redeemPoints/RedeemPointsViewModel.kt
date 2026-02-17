@@ -56,7 +56,7 @@ class RedeemPointsViewModel(application: Application) : AndroidViewModel(applica
         return currentPoints >= requiredPoints
     }
 
-    fun canjear(username: String, puntos: Int) {
+    fun canjear(username: String, puntos: Int, descripcion: String) {
         viewModelScope.launch {
 
             val userId = userRepository.findUserIdByUsername(username)
@@ -69,12 +69,19 @@ class RedeemPointsViewModel(application: Application) : AndroidViewModel(applica
             val success = userRepository.spendPoints(userId, puntos)
 
             if (success) {
-                //_error.value = "Canje realizado"
+
+                userRepository.insertReward(
+                    descripcion = descripcion,
+                    idUsuario = userId
+                )
+
+                loadMyPoints()
             } else {
                 _error.value = "No tenés puntos suficientes"
             }
         }
     }
+
 
 
 }
